@@ -48,6 +48,11 @@ Route::middleware('auth')->group(function () {
 // Route::get('/auth/redirect', function () {
 //     return Socialite::driver('google')->redirect();
 // });
+
+Route::middleware('admin')->prefix('admin')->group(function () {
+    Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+    Route::resource('locations', \App\Http\Controllers\Admin\LocationController::class);
+});
  
 
 require __DIR__.'/auth.php';
