@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('advertisements', AdvertisementController::class);
+    Route::patch('advertisements/{id}/sold', [AdvertisementController::class, 'markAsSold'])->name('advertisements.sold');
 });
 
 

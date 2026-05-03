@@ -177,4 +177,16 @@ class AdvertisementController extends Controller
         return redirect()->route('advertisements.index')
             ->with('success', 'Ad deleted successfully.');
     }
+
+    public function markAsSold(string $id)
+{
+    $advertisement = Advertisement::findOrFail($id);
+
+    $this->authorize('update', $advertisement);
+
+    $advertisement->update(['status' => 'sold']);
+
+    return redirect()->route('advertisements.index')
+        ->with('success', 'Ad marked as sold!');
+}
 }

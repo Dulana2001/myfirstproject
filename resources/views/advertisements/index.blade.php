@@ -50,6 +50,18 @@
                                        class="text-blue-500 mr-2">View</a>
                                     <a href="{{ route('advertisements.edit', $ad->id) }}"
                                        class="text-green-500 mr-2">Edit</a>
+
+                                       @if($ad->status === 'active')
+                                       <form action="{{ route('advertisements.sold', $ad->id) }}"
+                                             method="POST" class="inline">
+                                           @csrf
+                                           @method('PATCH')
+                                           <button type="submit" class="text-orange-500 mr-2"
+                                                   onclick="return confirm('Mark this ad as sold?')">
+                                               Sold
+                                           </button>
+                                       </form>
+                                   @endif   
                                     <form action="{{ route('advertisements.destroy', $ad->id) }}"
                                           method="POST" class="inline">
                                         @csrf

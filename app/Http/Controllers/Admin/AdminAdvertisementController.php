@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Advertisement;
 use Illuminate\Http\Request;
+use App\Mail\AdApproved;
+use App\Mail\AdRejected;
+use Illuminate\Support\Facades\Mail;
 
 class AdminAdvertisementController extends Controller
 {
@@ -41,6 +44,11 @@ class AdminAdvertisementController extends Controller
             'published_at' => now(),
         ]);
 
+        // Send email to the user
+    Mail::to($advertisement->user->email)->send(new AdApproved($advertisement));
+
+
+
         return redirect()->route('admin.advertisements.index')
             ->with('success', 'Ad approved successfully!');
     }
@@ -53,6 +61,9 @@ class AdminAdvertisementController extends Controller
         $advertisement->update([
             'status' => 'rejected',
         ]);
+
+        // Send email to the user
+    Mail::to($advertisement->user->email)->send(new AdRejected($advertisement));
 
         return redirect()->route('admin.advertisements.index')
             ->with('success', 'Ad rejected.');
