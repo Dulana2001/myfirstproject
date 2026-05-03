@@ -57,6 +57,16 @@ Route::middleware('auth')->group(function () {
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
     Route::resource('locations', \App\Http\Controllers\Admin\LocationController::class);
+
+    // Admin advertisement moderation
+    Route::get('advertisements', [\App\Http\Controllers\Admin\AdminAdvertisementController::class, 'index'])
+        ->name('admin.advertisements.index');
+    Route::get('advertisements/{id}', [\App\Http\Controllers\Admin\AdminAdvertisementController::class, 'show'])
+        ->name('admin.advertisements.show');
+    Route::post('advertisements/{id}/approve', [\App\Http\Controllers\Admin\AdminAdvertisementController::class, 'approve'])
+        ->name('admin.advertisements.approve');
+    Route::post('advertisements/{id}/reject', [\App\Http\Controllers\Admin\AdminAdvertisementController::class, 'reject'])
+        ->name('admin.advertisements.reject');
 });
  
 

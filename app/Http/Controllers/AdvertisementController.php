@@ -165,7 +165,7 @@ class AdvertisementController extends Controller
     {
         $advertisement = Advertisement::findOrFail($id);
 
-        $this->authorize('delete', $advertisement);
+       $this->authorize('delete', $advertisement, 8);
 
         // Delete images from storage
         foreach ($advertisement->images as $image) {
